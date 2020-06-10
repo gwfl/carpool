@@ -1,0 +1,65 @@
+<ion-view view-title="AES-256 CryptoJS">
+  <ion-content>
+ 
+<ion-list   ng-hide="vm.loginOk">
+<ion-item class="card" >
+<div class="item">
+      <label>Username: </label>
+                <input type="text" name="username" class="form-control" ng-model="vm.usrnm" 
+    placeholder="Enter your username"     />
+</div>
+<div class="item col col-90">
+      <label>Crypt Key: </label>
+                  <input type="text" name="cryptkey" class="form-control" ng-model="vm.cryptkey" 
+    placeholder="Crypto key (Never Stored)" />
+</div>
+<div class="item text-center">
+	<button class="button button-positive icon-right ion-chevron-right" ng-click="checkLogin()"> Login </button>
+</div>
+</ion-item>
+
+  <pre>ngrUU:: {{ngrUU | json}}</pre>
+
+<ion-item class="text-center">
+  <div class="text-center button button-stable">
+    Username is stored (unencrypted).<br>
+    The CRYPT KEY IS NEVER STORED.  <br>
+    You MUST NOT FORGET it!<br><br>
+    Account details are Always Encrypted.<br>
+    All Decryption is performed on your device <br>
+    for your Viewing Only <br><br>
+  </div> </ion-item>
+</ion-list>
+
+<!-- ion-list  ng-show="vm.loginOk" -->
+<ion-list  ng-show="vm.loginOk">
+  <ion-item class="list list-inset">
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" ng-model="vm.dAES" placeholder="Search for Account">
+  </label>
+</ion-item>
+<ion-item> 
+  <div class="card list" ng-repeat="aa in vm.accts | filter:vm.dAES" ng-init="aaIdx = $index;">
+    <div class="row">    
+      <div class="col col-33">         <button class="button button-small button-balanced"
+          ng-click="aaView(aaIdx)"
+        > DECRYPT <br>  {{ aa.acctnm }} </button> </div>
+      <div class="col col-67"> 
+        <span class="row fluid button button-small">
+          Notes:<br> {{ aa.xtra }} </span> </div>
+    </div>
+  </div>
+      </ion-item>
+  <ion-item>  <label class="text-center button button-small button-calm">
+    All Account details are encrypted.<br>
+    The Account Name has been decrypted here<br>
+    for View Only.<br>
+    The database will always remain encrypted.
+  </label>
+  <!-- pre>vm.user = {{ngrUU | json}}</pre -->
+  </ion-item>  
+    </ion-list>
+
+  </ion-content>
+</ion-view>

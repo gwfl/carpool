@@ -1,0 +1,55 @@
+<ion-view view-title=" {{ decAES.acctnm }} ">
+	<ion-content>
+  <!-- pre>vm.user = {{vm.user | json}}</pre -->
+
+<ion-list>
+ <ion-item  class="text text-wrap">
+           <span class="button button-dark"> {{ decAES.pswd }} </span> 
+           <h4> </h4>
+  <span class="item item-divider">Notes: </span>
+      <div class="item item-text-wrap">
+    {{decAES.xtra}} 
+  </div>
+ </ion-item>
+
+<ion-item  class="list list-inset item item-divider" >
+  <div class="row"><div class="col col-80">
+        <h4 class="button button-small button-stable">
+          Change Account:: </h4> <br>
+  <input
+      ng-model="decAES.acctnm"
+      type="text"  placeholder="Acct Nm"
+    />    <input
+      ng-model="decAES.pswd"
+      type="text"  placeholder="New Pswd"
+    /> 
+        <h4 class="button button-small button-stable">
+          Change Notes:: </h4> <br>
+    <textarea ng-model="decAES.xtra" placeholder="Comments"></textarea>
+          </div>
+<div class="col text-center">
+     <button class="button button-small button-positive" ng-click="newRec()">
+        Save Changes  </button>
+</div>
+</div>
+    </ion-item>
+
+ <ion-item  class="text text-wrap">
+           <span class="button button-dark"> {{ encAES.pswd }} </span> 
+           <h4> </h4>
+  <span class="item item-divider">Notes: </span>
+      <div class="item item-text-wrap">
+    {{ encAES.xtra }} 
+  </div>
+ </ion-item>
+</ion-list>
+
+  </ion-content>
+
+  <ion-footer-bar>
+    <button class="button button-calm icon-left ion-plus" ng-click="newRec()">
+      Add Account
+    </button>
+  </ion-footer-bar>
+
+</ion-view>

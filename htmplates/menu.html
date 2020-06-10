@@ -1,0 +1,39 @@
+<ion-side-menus enable-menu-with-back-views="false">
+	<ion-side-menu-content>
+		<ion-nav-bar class="bar-positive">
+			<ion-nav-back-button> </ion-nav-back-button>
+
+			<ion-nav-buttons side="left">
+				<a href="#"><button
+            class="button button-icon button-clear ion-ios-home-outline"
+            menu-close
+          ></button></a>
+			</ion-nav-buttons>
+			<ion-nav-buttons side="right">
+				<button
+          class="button button-icon button-clear ion-navicon"
+          menu-toggle="right"
+        ></button>
+			</ion-nav-buttons>
+		</ion-nav-bar>
+
+		<ion-nav-view name="menuContent"></ion-nav-view>
+	</ion-side-menu-content>
+
+	<ion-side-menu side="right">
+		<ion-header-bar class="bar-stable">
+			<h1 class="title">Main Menu</h1>
+		</ion-header-bar>
+		<ion-content>
+			<div class="list">
+				<a class="item item-icon-left" href="#/event/page1" menu-close>
+					<i class="icon ion-ios-paperplane"></i>
+					Page 1
+					<span class="item-note">
+            (details)
+          </span>
+				</a>
+			</div>
+		</ion-content>
+	</ion-side-menu>
+</ion-side-menus>
