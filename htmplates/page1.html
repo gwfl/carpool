@@ -1,137 +1,76 @@
-<ion-view view-title="AES-256 Coming Soon">
+<ion-view view-title="AES-256 New User Signup">
   <ion-content>
 
-<div class="list list-inset">
-  <label class="item item-input">
-    <i class="icon ion-search placeholder-icon"></i>
-    <input type="text" placeholder="Search">
-  </label>
+<ion-list ng-show="vm.signup">
+<ion-item class="card" >
+<div class="item">
+      <label>Username: </label>
+                <input type="text" name="username" class="form-control" ng-model="vm.usrnm" 
+    placeholder="Enter your username"     />
 </div>
-
-<div class="list">
-  <label class="item item-input">
-    <input type="text" placeholder="First Name">
-  </label>
-  <label class="item item-input">
-    <input type="text" placeholder="Last Name">
-  </label>
-  <label class="item item-input">
-    <textarea placeholder="Comments"></textarea>
-  </label>
+<div class="item col col-90">
+      <label>Crypt Key: </label>
+                  <input type="text" name="cryptkey" class="form-control" ng-model="vm.cryptkey" 
+    placeholder="Crypto key (Never Stored)" />
 </div>
+<div class="item text-center">
+	<button class="button button-positive icon-right ion-chevron-right" ng-click="userSignup()"> Signup </button>
+</div>
+</ion-item>
 
-<ion-list><ion-item>
+<ion-item class="text-center">
+  <div class="text-center button button-stable">
+    Username is stored (unencrypted).<br>
+    The CRYPT KEY IS NEVER STORED.  <br>
+    You MUST NOT FORGET it!<br><br>
+    Account details are Always Encrypted.<br>
+    All Decryption is performed on your device <br>
+    for your Viewing Only <br><br>
+  </div> </ion-item>
+</ion-list>
+
   <p> vm.Encrypted:: {{ vm.eAES }} 
   <p> vm.Decrypted:: {{ vm.dAES }}
  <br>
 
-	<input
-      ng-model="vm.usrnm"
-      type="text"
-      id="vmUsername"
-      placeholder="Username"
-    />
-	<input ng-model="vm.cryptkey" type="text" id="vmCryptkey" placeholder="your crypt keyword" />
-	<button class="button icon-left ion-plus" ng-click="checkLogin()">
-      Login
-    </button>
 
-</ion-item></ion-list>
 
-page 1
-
-    <!-- div class="row fluid"> SAMPLE:: {{cryptRecs}}
-    <br> 
-    newRecID:: {{ newRecID }}
-    <br> 
-    ngrUtilRecs:: {{ ngrUtilRecs[0].jsonData.users }}
-    <br> 
-    UtilRec:: {{ utilRec.jsonData.records }}
-    </div -->
-
-    <label>Search: <input ng-model="searchText"></label>
-
-    <ion-list>
-      <ion-item ng-repeat="cc in ngrUtilRecs[0].jsonData.users|filter:searchText">
-              {{cc.usrnm}} :: {{cc.seed}} <br>
- <div class="card" ng-repeat="aa in cc.accts">
-        <button
-          class="button button-small button-energized"
-          ng-click=" "
-        >
-          <i class="icon ion-ios-plus-outline"></i> view
-        </button> 
-        
-        <br>   {{aa.acctnm}} <br>    {{aa.pswd}} 
-      </div>
+<!-- ion-list  ng-show="vm.loginOk" -->
+<ion-list  ng-show="vm.loginOk">
+  <ion-item>
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" ng-model="vm.dAES" placeholder="Search for Account">
+  </label>
+</ion-item>
+<ion-item> 
+  <div class="card list" ng-repeat="aa in vm.accts | filter:vm.dAES" ng-init="aaIdx = $index;">
+    <div class="row">    
+      <div class="col col-33">         <button class="button button-small button-balanced"
+          ng-click="aaView(aaIdx)"
+        > DECRYPT <br>  {{ aa.acctnm }} </button> </div>
+      <div class="col col-67"> 
+        <span class="row fluid button button-small">
+          Notes:<br> {{ aa.xtra }} </span> </div>
+    </div>
+  </div>
       </ion-item>
+  <ion-item  class="text-center">   
+  <h4> End of Accounts Listing </h4> 
+          <button class="button button-small button-balanced"
+          ng-click="addAcct(vm.usrnm)"
+        > ADD Account </button> 
+      </ion-item>
+  <ion-item  class="text-center">   
+ <label class="text-center button button-small button-stable">
+    All Account details are encrypted.<br>
+    The Account Name has been decrypted here<br>
+    for View Only.<br>
+    The database will always remain encrypted.
+  </label>
+  <pre>vm.user = {{ngrUU | json}}</pre>
+  </ion-item>  
     </ion-list>
-
-    <h1>Angular aes encrpyt / decrypt</h1>
-    <!-- div ng-controller="cryptCTRL as vm" -->
-      <div class="w3-panel w3-pale-red w3-leftbar w3-border-red">
-      <div class="w3-tag w3-red">encrypted</div> 
-      <p>{{vm.eAES}}</p>
-      </div>
-      <div class="w3-panel w3-pale-green w3-leftbar w3-border-green">
-      <div class="w3-tag w3-green">decrypted</div> 
-      <p>{{vm.dAES}}</p>
-      </div>
-
-      <p>vm123: {{vm.aat123}}</p>
-      <p>vmCrypt: {{vm.aatCrypt}}</p>
-      
-      <p> vm123: {{aat123}}</p>
-      <p> vm1Crypt: {{aatCrypt}}</p>
-
-<ion-list ng-controller="MyCtrl"
-          show-delete="shouldShowDelete"
-          show-reorder="shouldShowReorder"
-          can-swipe="listCanSwipe">
-  <ion-item ng-repeat="item in items"
-            class="item-thumbnail-left">
-
-    <img ng-src="{{item.img}}">
-    <h2>{{item.title}}</h2>
-    <p>{{item.description}}</p>
-    <ion-option-button class="button-positive"
-                       ng-click="share(item)">
-      Share
-    </ion-option-button>
-    <ion-option-button class="button-info"
-                       ng-click="edit(item)">
-      Edit
-    </ion-option-button>
-    <ion-delete-button class="ion-minus-circled"
-                       ng-click="items.splice($index, 1)">
-    </ion-delete-button>
-    <ion-reorder-button class="ion-navicon"
-                        on-reorder="reorderItem(item, $fromIndex, $toIndex)">
-    </ion-reorder-button>
-
-  </ion-item>
-</ion-list>
-
-<!-- 
-app.controller('MyCtrl', function($scope) {
- $scope.shouldShowDelete = false;
- $scope.shouldShowReorder = false;
- $scope.listCanSwipe = true
-});  -->
 
   </ion-content>
 </ion-view>
-
-<ion-footer-bar>
-	<input
-      ng-model="vm.usrnm"
-      type="text"
-      placeholder="Type a new phrase ..."
-    />
-
-	<input ng-model="vm.cryptkey" type="text"  placeholder="your crypt keyword" />
-	<button class="button icon-left ion-plus" ng-click="checkLogin()">
-      Encrypt
-    </button>
-
-</ion-footer-bar>

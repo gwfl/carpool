@@ -1,3 +1,64 @@
+<ion-view view-title="AES-256 CryptoJS -- login">
+  <ion-content>
+ 
+<ion-list   ng-hide="vm.loginOk">
+<ion-item class="card" >
+<div class="item  col col-90">
+      <label>Username: </label>
+                <input type="text" name="username" class="form-control" ng-model="vm.usrnm" 
+    placeholder="Enter your username"     />
+</div>
+<div class="item col col-90">
+      <label>Crypt Key: </label>
+                  <input type="text" name="cryptkey" class="form-control" ng-model="vm.cryptkey" 
+    placeholder="Crypto key (Never Stored)" />
+</div>
+<div class="item text-center">
+	<button class="button button-positive icon-right ion-chevron-right" ng-click="checkLogin()"> Login </button>
+</div>
+</ion-item>
+
+<ion-item class="text-center">
+  <div class="text-center button button-stable">
+    Username is stored (unencrypted).<br>
+    The CRYPT KEY IS NEVER STORED.  <br>
+    You MUST NOT FORGET it!<br><br>
+    Account details are Always Encrypted.<br>
+    All Decryption is performed on your device <br>
+    for your Viewing Only <br><br>
+  </div> </ion-item>
+</ion-list>
+
+<!-- ion-list ng-show="vm.signup" -->
+<ion-list  ng-show="vm.signup">
+<ion-item class="card" >
+<div class="item  col col-90">
+      <label>Username: (Choose a Username)</label>
+                <input type="text" name="username" class="form-control" ng-model="vm.usrnm" 
+    placeholder="Enter your username"     />
+</div>
+<div class="item col col-90">
+      <label>Crypt Key: (Never Stored) </label>
+                  <input type="text" name="cryptkey" class="form-control" ng-model="vm.cryptkey" 
+    placeholder="Crypto key (Never Stored)" />
+</div>
+<div class="item text-center">
+	<button class="button button-balanced icon-right ion-chevron-right" ng-click="checkLogin()"> Signup </button>
+</div>
+</ion-item>
+
+<ion-item class="text-center">
+  <div class="text-center button button-stable">
+    Username is stored (unencrypted).<br>
+    The CRYPT KEY IS NEVER STORED.  <br>
+    You MUST NOT FORGET it!<br><br>
+    Account details are Always Encrypted.<br>
+    All Decryption is performed on your device <br>
+    for your Viewing Only <br><br>
+  </div> </ion-item>
+</ion-list>
+
+
 <ion-list  class="list list-inset" >
 <ion-item class="text text-center">
      <button class="button button-balanced">
@@ -17,3 +78,6 @@
         Save Changes  </button>
 </ion-item>
 </ion-list>
+
+  </ion-content>
+</ion-view>
