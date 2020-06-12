@@ -142,6 +142,10 @@ ionApp.controller('MainCtrl', function(
     var ii = 0;
     $rootScope.vm.loginOk = false;
     $rootScope.vm.usrnm = $rootScope.vm.usrnm.toLowerCase();
+    
+    if ( $rootScope.vm.usrnm == 'sample' ) {
+  $rootScope.vm.cryptkey = 'alpha1234';
+};
 
     angular.forEach($rootScope.ngrUU, function(uuObj) {
       if (
