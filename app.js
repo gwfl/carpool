@@ -82,7 +82,7 @@ ionApp.run(function($rootScope, dbSvc) {
     inSession: false,
     accts: [{ acctnm: '', pswd: '', xtra: '' }],
   };
-  $rootScope.encAES = { acctnm: '', pswd: '', xtra: '' };
+  $rootScope.encAES = { acctnm: 'encacct', pswd: 'encpass', xtra: 'encxtra' };
   $rootScope.decAES = { acctnm: '', pswd: '', xtra: '' };
 
   $rootScope.ngrUU = dbSvc.ngrUtil('{"utilkey":"crypto"}').query();
@@ -105,7 +105,6 @@ ionApp.controller('MainCtrl', function(
 ) {
 
   if (! $rootScope.vm.loginOk) {
-   console.log('state.go> login');
     $state.go('app.login');
   };
 
@@ -132,6 +131,10 @@ ionApp.controller('MainCtrl', function(
         }
       }
     }
+    console.log('checkLogin:: ', $rootScope.encAES);
+    if ( $rootScope.vm.inSession) {
+      $state.go('app.main');
+    };
   }; // end checkLogin
 
   $scope.userMatch = function() {
@@ -150,7 +153,8 @@ ionApp.controller('MainCtrl', function(
         $rootScope.userRec.jsonData.usrnm = $rootScope.vm.usrnm;
         $rootScope.userRec._id = $rootScope.ngrUU[jj]._id;
         $rootScope.userRec.utilkey = $rootScope.ngrUU[jj].utilkey;
-        angular.copy($rootScope.ngrUU[jj].jsonData.accts, $rootScope.vm.accts);
+        $rootScope.userRec.jsonData.accts = angular.copy($rootScope.ngrUU[jj].jsonData.accts);
+        angular.copy($rootScope.userRec.jsonData.accts, $rootScope.vm.accts);
 
         ii = 0;
         for (ii = 0; ii < $rootScope.vm.accts.length; ii++) {
@@ -176,13 +180,32 @@ ionApp.controller('MainCtrl', function(
       var qq = '{"usrnmx":"' + $rootScope.vm.usrnm + '"}';
       $rootScope.ngrUU = dbSvc.ngrUtil(qq).query();
       $rootScope.ngrUU.$promise.then(function(data) {
-  console.log('ngrUU::', $rootScope.ngrUU);
         $scope.userMatch();
       });
     });
     $rootScope.vm.accts = [];
+    $rootScope.aaIdx = -1;
     $state.go('app.main');
-  }; // end addUsername
+  }; // end addUsername()  
+
+  $scope.addAcct = function() {
+    $rootScope.decAES = {acctnm: '', pswd: '', xtra: ''};
+    $rootScope.vm.accts.push(); // $rootScope.decAES);
+    $rootScope.aaIdx = $rootScope.vm.accts.length - 1;
+    console.log($rootScope.aaIdx, "::", $rootScope.vm.accts);
+  }; // end addAcct()
+
+  $scope.updAcct = function() {
+    $scope.encAES1();
+    $rootScope.vm.accts.push($rootScope.decAES);
+    $rootScope.aaIdx = $rootScope.vm.accts.length - 1;
+  //  $rootScope.userRec.jsonData.accts.push($rootScope.encAES);
+    $rootScope.vm.accts[$rootScope.aaIdx].acctnm = $rootScope.decAES.acctnm;
+    $rootScope.vm.accts[$rootScope.aaIdx].pswd = $rootScope.encAES.pswd;
+    $rootScope.vm.accts[$rootScope.aaIdx].xtra = $rootScope.encAES.xtra;
+    // write updated ngrUU
+    $state.go('app.main');
+  }; // end updAcct()
 
   $scope.aaView = function(aa) {
     $rootScope.aaIdx = aa;
@@ -197,12 +220,14 @@ ionApp.controller('MainCtrl', function(
       $rootScope.vm.cryptkey,
       256
     );
-
-    $location.path('/app/details');
   };
 
-  $scope.encAES = function() {
-    //  $rootScope.encAES.acctnm = $crypto.encrypt($rootScope.decAES.acctnm, $rootScope.vm.cryptkey,256);
+  $scope.encAES1 = function() {
+    $rootScope.encAES.acctnm = $crypto.encrypt(
+      $rootScope.decAES.acctnm, 
+      $rootScope.vm.cryptkey,
+      256
+    );
     $rootScope.encAES.pswd = $crypto.encrypt(
       $rootScope.decAES.pswd,
       $rootScope.vm.cryptkey,
@@ -213,15 +238,21 @@ ionApp.controller('MainCtrl', function(
       $rootScope.vm.cryptkey,
       256
     );
-
-    $rootScope.vm.accts[$rootScope.aaIdx].pswd = $rootScope.encAES.pswd;
-    $rootScope.vm.accts[$rootScope.aaIdx].xtra = $rootScope.encAES.xtra;
-
-    $rootScope.userRec.accts[$rootScope.aaIdx].pswd = $rootScope.encAES.pswd;
-    $rootScope.userRec.accts[$rootScope.aaIdx].xtra = $rootScope.encAES.xtra;
   };
 
   $scope.saveRec = function() {
+
+/*  $scope.encAES1();
+
+    $rootScope.vm.accts[$rootScope.aaIdx].acctnm = $rootScope.encAES.acctnm;
+      $rootScope.vm.accts[$rootScope.aaIdx].pswd = $rootScope.encAES.pswd;
+      $rootScope.vm.accts[$rootScope.aaIdx].xtra = $rootScope.encAES.xtra;
+
+    $rootScope.userRec.accts[$rootScope.aaIdx].pswd = $rootScope.encAES.pswd;
+    $rootScope.userRec.accts[$rootScope.aaIdx].xtra = $rootScope.encAES.xtra;
+
+*/
+
     dbSvc
       .ngrUtil()
       .get({ id: '5ed997272d9d125d00016725' })
@@ -232,7 +263,7 @@ ionApp.controller('MainCtrl', function(
   }; //  $scope.saveRec();
 
   $scope.newRec = function() {
-    $scope.encAES();
+    $scope.encAES1();
     console.log('$vm.user::', $rootScope.aaIdx, ' :: ', $rootScope.encAES);
     var vnrUtil = dbSvc.ngrUtil();
     var newRec1 = new vnrUtil();

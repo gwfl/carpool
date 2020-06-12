@@ -1,43 +1,55 @@
 <ion-view view-title="AES-256 CryptoJS main">
   <ion-content>
 
-<!-- ion-list  ng-show="vm.loginOk" -->
+<!-- ion-list  ng-show="vm.loginOk" 
+<pre> encAES:: {{ encAES  | json }} </pre>
+ -->
+
 <ion-list  ng-show="vm.inSession">
-  <ion-item>
+  <ion-item  class="text-center">   
   <label class="item item-input">
     <i class="icon ion-search placeholder-icon"></i>
     <input type="text" ng-model="vm.dAES" placeholder="Search for Account">
   </label>
+  <h4>  </h4> 
+  <h4> Accounts Found: {{ vm.accts.length }} </h4> 
+
 </ion-item>
-<ion-item> 
-  <div class="card list" ng-repeat="aa in vm.accts | filter:vm.dAES" ng-init="aaIdx = $index;">
+<ion-item  class="card list" ng-repeat="aa in vm.accts | filter:vm.dAES" ng-init="aaIdx = $index;">
     <div class="row">    
-      <div class="col col-33">         <button class="button button-small button-balanced"
+      <div class="col col-33"> 
+        	<a href="#/app/details">          
+                <button class="button button-small button-balanced"
           ng-click="aaView(aaIdx)"
-        > DECRYPT <br>  {{ aa.acctnm }} </button> </div>
+        > DECRYPT <br>  {{ aa.acctnm }} </button>
+         </a>
+          </div>
       <div class="col col-67"> 
         <span class="row fluid button button-small">
           Notes:<br> {{ aa.xtra }} </span> </div>
     </div>
-  </div>
       </ion-item>
   <ion-item  class="text-center">   
-  <h4> End of Accounts Listing </h4> 
-          <button class="button button-small button-balanced"
-          ng-click="addAcct(vm.usrnm)"
-        > ADD Account </button> 
-      </ion-item>
+	<a href="#/app/details">          <button class="button button-small button-balanced"
+    ng-click="addAcct()"
+        > ADD Account </button> </a>
+     </ion-item>
   <ion-item  class="text-center">   
  <label class="text-center button button-small button-stable">
     All Account details are encrypted.<br>
-    The Account Name has been decrypted here<br>
+    The Account Names have been decrypted here<br>
     for View Only.<br>
     The database will always remain encrypted.
   </label>
-  <pre>vm.user = {{ userRec | json}}</pre> <h4></h4>
-  <pre>vm.user = {{ ngrUU | json}}</pre>
   </ion-item>  
     </ion-list>
 
   </ion-content>
+
+  <ion-footer-bar>
+    <button class="button button-calm icon-left ion-plus" ng-click="newRec()">
+      Add Account
+    </button>
+  </ion-footer-bar>
+
 </ion-view>

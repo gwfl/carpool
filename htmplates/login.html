@@ -1,6 +1,6 @@
 <ion-view view-title="AES-256 CryptoJS -- login">
   <ion-content>
- 
+
 <ion-list   ng-hide="vm.loginOk">
 <ion-item class="card" >
 <div class="item  col col-90">
@@ -14,6 +14,8 @@
     placeholder="Crypto key (Never Stored)" />
 </div>
 <div class="item text-center">
+
+     <h4> Error Message will show here ... </h4> 
 	<button class="button button-positive icon-right ion-chevron-right" ng-click="checkLogin()"> Login </button>
 </div>
 </ion-item>
@@ -56,27 +58,6 @@
     All Decryption is performed on your device <br>
     for your Viewing Only <br><br>
   </div> </ion-item>
-</ion-list>
-
-
-<ion-list  class="list list-inset" >
-<ion-item class="text text-center">
-     <button class="button button-balanced">
-      {{ decAES.acctnm }}  </button><h4> </h4> </ion-item>
-<ion-item class="button button-dark">
-{{ decAES.pswd }}
- </ion-item>
-
-<ion-item  class="text text-wrap">
-          Notes . Comments::  </button><h4> </h4>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget pharetra tortor. Proin quis eros imperdiet, facilisis nisi in, tincidunt orci. Nam tristique elit massa, quis faucibus augue finibus ac.
-    {{decAES.xtra}}
- </ion-item>
-
-<ion-item class="item item-footer text-center">
-     <button class="button button-small button-positive" ng-click="newRec()">
-        Save Changes  </button>
-</ion-item>
 </ion-list>
 
   </ion-content>

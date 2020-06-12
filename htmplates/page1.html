@@ -68,9 +68,33 @@
     for View Only.<br>
     The database will always remain encrypted.
   </label>
-  <pre>vm.user = {{ngrUU | json}}</pre>
+
+  <pre>vm.user:: {{ userRec | json}}</pre> <h4></h4>
+  <pre>vm.ngrUU:: {{ ngrUU | json}}</pre>
+
   </ion-item>  
     </ion-list>
+
+
+<ion-list  class="list list-inset" >
+<ion-item class="text text-center">
+     <button class="button button-balanced">
+      {{ decAES.acctnm }}  </button><h4> </h4> </ion-item>
+<ion-item class="button button-dark">
+{{ decAES.pswd }}
+ </ion-item>
+
+<ion-item  class="text text-wrap">
+          Notes . Comments::  </button><h4> </h4>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget pharetra tortor. Proin quis eros imperdiet, facilisis nisi in, tincidunt orci. Nam tristique elit massa, quis faucibus augue finibus ac.
+    {{decAES.xtra}}
+ </ion-item>
+
+<ion-item class="item item-footer text-center">
+     <button class="button button-small button-positive" ng-click="newRec()">
+        Save Changes  </button>
+</ion-item>
+</ion-list>
 
   </ion-content>
 </ion-view>
