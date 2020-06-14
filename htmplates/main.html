@@ -15,7 +15,9 @@
   <h4> Accounts Found: {{ vm.accts.length }} </h4> 
 
 </ion-item>
-<ion-item  class="card list" ng-repeat="aa in vm.accts | filter:vm.dAES" ng-init="aaIdx = $index;">
+<ion-item  class="card list" ng-repeat="aa in vm.accts | filter:vm.dAES track by $index" ng-init="aaIdx = $index;">
+<!-- li class="animate-repeat" ng-repeat="friend in friends | filter:q as results track by friend.name" -->
+
     <div class="row">    
       <div class="col col-33"> 
         	<a href="#/app/details">          
@@ -45,11 +47,5 @@
     </ion-list>
 
   </ion-content>
-
-  <ion-footer-bar>
-    <button class="button button-calm icon-left ion-plus" ng-click="newRec()">
-      Add Account
-    </button>
-  </ion-footer-bar>
 
 </ion-view>
