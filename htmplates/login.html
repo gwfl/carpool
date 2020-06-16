@@ -1,7 +1,7 @@
 <ion-view view-title="AES-256 CryptoJS -- login">
   <ion-content>
 
-<ion-list   ng-hide="vm.loginOk">
+<ion-list   ng-hide="vm.signup">
 <ion-item class="card" >
 <div class="item  col col-90">
       <label>Username: </label>
@@ -13,10 +13,12 @@
                   <input type="text" name="cryptkey" class="form-control" ng-model="vm.cryptkey" 
     placeholder="Crypto key (Never Stored)" />
 </div>
+<div class="item">
+     <h4> {{ vm.errmsg }} </h4> 
+</div>
 <div class="item text-center">
-
-     <h4> Error Message will show here ... </h4> 
 	<button class="button button-positive icon-right ion-chevron-right" ng-click="checkLogin()"> Login </button>
+    <span ng-click="vm.signup=true; vm.cryptkey=''; checkLogin()" class="badge badge-balanced">Sign Up</span>
 </div>
 </ion-item>
 
@@ -44,8 +46,12 @@
                   <input type="text" name="cryptkey" class="form-control" ng-model="vm.cryptkey" 
     placeholder="Crypto key (Never Stored)" />
 </div>
+<div class="item">
+     <h4> {{ vm.errmsg }} </h4> 
+</div>
 <div class="item text-center">
-	<button class="button button-balanced icon-right ion-chevron-right" ng-click="checkLogin()"> Signup </button>
+	<button class="button button-balanced icon-right ion-chevron-right" ng-click="checkLogin()"> Sign Up </button>
+    <span ng-click="vm.signup=false; vm.cryptkey=''; checkLogin()" class="badge badge-positive">Login</span>
 </div>
 </ion-item>
 
