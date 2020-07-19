@@ -4,33 +4,39 @@
 <!-- ion-list  ng-show="vm.loginOk" 
 <pre> encAES:: {{ encAES  | json }} </pre>
  -->
-
+	  
 <ion-list  ng-show="vm.inSession">
   <ion-item  class="text-center">   
+  <h4> Accounts Found: {{ vm.accts.length }} </h4> 
+    <div class="row">    
+      <div class="col col-80"> 
   <label class="item item-input">
     <i class="icon ion-search placeholder-icon"></i>
     <input type="text" ng-model="vm.dAES" placeholder="Search for Account">
   </label>
-  <h4>  </h4> 
-  <h4> Accounts Found: {{ vm.accts.length }} </h4> 
-
+</div>
+<div class="col col-20"> 
+	<a href="#/app/details">          <button class="button button-small button-balanced"
+    ng-click="addAcct()"
+        > ADD Account </button> </a> 
+  </div></div>
 </ion-item>
 <ion-item  class="card list" ng-repeat="aa in vm.accts | filter:vm.dAES track by $index" ng-init="aaIdx = $index;">
 <!-- li class="animate-repeat" ng-repeat="friend in friends | filter:q as results track by friend.name" -->
 
-    <div class="row">    
-      <div class="col col-33"> 
+<div class="row">    
+      <div class="col col-90  button button-small "> 
+       {{ aa.acctnm }} </div>
+      <div class="col col-10"> 
         	<a href="#/app/details">          
                 <button class="button button-small button-balanced"
           ng-click="aaView(aaIdx)"
-        > DECRYPT </button>
+        > Show </button>
          </a>
           </div>
-      <div class="col col-67"> 
-        <span class="row fluid button button-small">
-        {{ aa.acctnm }}  <br>  Notes:<br> {{ aa.xtra }} </span> </div>
     </div>
-      </ion-item>
+    <div class="row fluid">    
+          <br>    Notes:<br> {{ aa.xtra }} </span>           </div>      </ion-item>
   <ion-item  class="text-center">   
 	<a href="#/app/details">          <button class="button button-small button-balanced"
     ng-click="addAcct()"
